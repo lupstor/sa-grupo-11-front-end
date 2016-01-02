@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class CompraController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -18,6 +18,7 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		$this->layout->main = View::make('home.index');
+		//return View::make('hello');
 	}
 
 
