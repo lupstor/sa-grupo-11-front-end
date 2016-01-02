@@ -18,7 +18,7 @@
                 <li>{{link_to('medicina/lista-medicinas',"Medicinas");}}</li>
                 <li>{{link_to('cliente/lista-clientes',"Clientes");}}</li>
                 <li>{{link_to('pedido/lista-pedidos',"Pedidos");}}</li>
-                <li>{{link_to('pedido/lista-compras',"Compras");}}</li>
+                <li>{{link_to('compra/lista-compras',"Compras");}}</li>
 
             </ul>
 

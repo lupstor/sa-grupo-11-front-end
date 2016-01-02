@@ -122,8 +122,9 @@ class PedidoController extends BaseController {
 			Log::error($ex);
 			Session::flash('error', 'Error al agregar medicina al pedido # '. $idPedido);
 		}
+		$pedido = json_decode($this->httpClient->get("/pedido/obtener-por-id/$idPedido"));
 
-		return Redirect::to('pedido/detalle-pedido/'.$idPedido);
+		return Redirect::to((empty($pedido->call_center) ? "compra/detalle-compra" : "pedido/detalle-pedido" )."/".$idPedido);
 	}
 
 	/**

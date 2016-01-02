@@ -45,7 +45,7 @@
                     <td>{{ $pedido->direccion_entrega }}</td>
                     <td>{{ "Q". number_format($pedido->total,2) }}</td>
                     <td>{{ $pedido->tipo_pago }}</td>
-                    <td>{{link_to('pedido/detalle-pedido/'.$pedido->id,"Detalle",array(),array('class' => 'btn btn-primary'));}}  </td>
+                    <td>{{link_to('pedido/detalle-pedido/'.$pedido->id,"Detalle",array('class' => 'btn btn-primary'));}}  </td>
                 </tr>
                 @endforeach
                 </tbody>

@@ -41,3 +41,19 @@ Route::group(array('prefix' => 'pedido'), function()
 	Route::get('pagar-pedido/{idPedido}','PedidoController@pagarPedido');
 
 });
+
+
+
+//Rutas para compras
+Route::group(array('prefix' => 'compra'), function()
+{
+	//Lista de compras
+	Route::get('lista-compras','CompraController@listaCompras');
+	Route::get('detalle-compra/{idPedido}','CompraController@detalleCompra');
+
+	//Crear compra
+	Route::get('nueva-compra','CompraController@nuevaCompra');
+	Route::post('guardar-compra','CompraController@guardarCompra');
+
+});
+
