@@ -21,10 +21,9 @@ class PedidoController extends BaseController {
 	 */
 	public function listaPedidos()
 	{
-		$httpClient = new Pest('http://localhost/sa-grupo11-services/public');
 		$pedidos = array();
 		try {
-			$pedidos = json_decode($httpClient->get('/pedido/lista-pedidos-call-center'));
+			$pedidos = json_decode($this->httpClient->get('/pedido/lista-pedidos-call-center'));
 		} catch (Exception $ex) {
 			Log::error($ex);
 		}
@@ -37,10 +36,9 @@ class PedidoController extends BaseController {
 	 */
 	public function detallePedido($idPedido)
 	{
-		$httpClient = new Pest('http://localhost/sa-grupo11-services/public');
 		try {
-			$pedido = json_decode($httpClient->get("/pedido/obtener-por-id/$idPedido"));
-			$detallePedido = json_decode($httpClient->get("/pedido/detalle-pedido/$idPedido"));
+			$pedido = json_decode($this->httpClient->get("/pedido/obtener-por-id/$idPedido"));
+			$detallePedido = json_decode($this->httpClient->get("/pedido/detalle-pedido/$idPedido"));
 		} catch (Exception $ex) {
 			Log::error($ex);
 		}
@@ -49,14 +47,12 @@ class PedidoController extends BaseController {
 	}
 
 	public function crearPedido(){
-		$httpClient = new Pest('http://localhost/sa-grupo11-services/public');
-
 		$empleados = array();
 		$clientes= array();
 
 		try {
-			$empleados = json_decode($httpClient->get("/empleado/lista/call_center"));
-			$clientes = json_decode($httpClient->get("/cliente/lista"));
+			$empleados = json_decode($this->httpClient->get("/empleado/lista/call_center"));
+			$clientes = json_decode($this->httpClient->get("/cliente/lista"));
 
 		} catch (Exception $ex) {
 			Log::error($ex);
@@ -67,12 +63,11 @@ class PedidoController extends BaseController {
 	}
 
 	public function  guardarPedido(){
-		$httpClient = new Pest('http://localhost/sa-grupo11-services/public');
 
 		//Get request data
 		$postData = Input::all();
 		try {
-			$resultado = json_decode($httpClient->post("/pedido/guardar-pedido-call-center",
+			$resultado = json_decode($this->httpClient->post("/pedido/guardar-pedido-call-center",
 				array(
 					"cliente"		    => $postData["cliente"],
 					"creado_por"	    => $postData["creado_por"],
@@ -94,11 +89,10 @@ class PedidoController extends BaseController {
 	}
 
 	public  function  crearDetallePedido($idPedido){
-		$httpClient = new Pest('http://localhost/sa-grupo11-services/public');
 
 		$medicinas = array();
 		try {
-			$medicinas = json_decode($httpClient->get("/medicina/lista"));
+			$medicinas = json_decode($this->httpClient->get("/medicina/lista"));
 		} catch (Exception $ex) {
 			Log::error($ex);
 		}
@@ -110,12 +104,11 @@ class PedidoController extends BaseController {
 	}
 
 	public  function  guardarDetallePedido($idPedido){
-		$httpClient = new Pest('http://localhost/sa-grupo11-services/public');
 
 		//Get request data
 		$postData = Input::all();
 		try {
-			$resultado = json_decode($httpClient->post("/pedido/guardar-detalle-pedido",
+			$resultado = json_decode($this->httpClient->post("/pedido/guardar-detalle-pedido",
 				array(
 					"pedido_id"         => $idPedido,
 					"medicina"		    => $postData["medicina"],
