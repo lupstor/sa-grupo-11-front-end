@@ -68,4 +68,12 @@ Route::group(array('prefix' => 'cliente'), function()
 
 });
 
+//Ruta para medicinas
+Route::group(array('prefix' => 'medicina'), function()
+{
+	//Lista de medicinas
+	Route::get('lista-medicinas','MedicinaController@listaMedicina');
+	
+
+});
 
