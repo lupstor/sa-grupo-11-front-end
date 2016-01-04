@@ -17,20 +17,27 @@
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Fecha</th>
-                    <th>Cliente</th>
-                    <th>Creado por</th>
-                    <th>Status</th>
-                    <th>Call center</th>
-                    <th>Nombre recibe</th>
-                    <th>Direccion entrega</th>
-                    <th>Total</th>
-
-                    <th>Tipo pago</th>
-
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Dirección</th>
+                    <th>Email</th>
+                   
                 </tr>
                 </thead>
+                <tbody>
+                @foreach ($clientes as $cliente)
+                <tr>
+                    <td>{{ $cliente -> id  }}</td>
+                    <td>{{ $cliente -> nombre  }}</td>
+                    <td>{{ $cliente -> telefono  }}</td>
+                    <td>{{ $cliente -> direccion  }}</td>
+                    <td>{{ $cliente -> email  }}</td>
+
+                   
+                </tr>
+                @endforeach
+                </tbody>
             </table>
             @else
             No existen clientes
