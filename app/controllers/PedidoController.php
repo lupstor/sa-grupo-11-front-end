@@ -133,6 +133,75 @@ class PedidoController extends BaseController {
 	public function pagarPedido($idPedido)
 	{
 		///Implementacion de Marcos
+		try {
+			$pedido = json_decode($this->httpClient->get("/pedido/obtener-por-id/$idPedido"));
+		} catch (Exception $ex) {
+			Log::error($ex);
+		}
+
+		Log::debug(__METHOD__ ." - Pagos: ". print_r($pedido,true));
+
+		$this->layout->main = View::make('pedido.crear-pago-pedido',compact('idPedido','pedido'));
+	}
+	
+	public  function  guardarPagoPedido($idPedido){
+
+		//Get request data
+		$postData = Input::all();
+		try {
+			if($postData["tipo_pago"]=='Tarjeta'){
+				$resultado = json_decode($this->httpClient->post("/pedido/verificar-pago-tarjeta",
+				array(
+					"NoTarjeta"		    => $postData["NoTarjeta"],
+					"CodigoSeguridad"	  => $postData["CodigoSeguridad"],
+				)));
+				if ($resultado->responseCode != 0){ 
+					throw new \Exception("Error al procesar Tarjeta");
+				}
+			}else{
+				$resultado = json_decode($this->httpClient->post("/pedido/verificar-pago-efectivo",
+				array(
+					"ocultoCambio"		    => $postData["ocultoCambio"],
+				)));
+				if ($resultado->responseCode != 0){ 
+					throw new \Exception("Error al procesar Tarjeta");
+				}
+			}
+			
+			$resultado = json_decode($this->httpClient->post("/pedido/guardar-pago-pedido",
+				array(
+					"idPedido"         => $idPedido,
+					"tipo_pago"		    => $postData["tipo_pago"],
+					"status"	        => 'Cancelada',
+				)));
+			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar pedido");
+			Session::flash('message', 'Pago agregado correctamente a pedido # '. $idPedido);
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al agregar pago al pedido # '. $idPedido);
+		}
+		//$pedido = json_decode($this->httpClient->get("/pedido/obtener-por-id/$idPedido"));
+		//$pedidos = array();
+		//$pedidos[0] = $pedido;
+		
+		return Redirect::to("pedido/pagar-pedido/".$idPedido);
+		//Log::debug(__METHOD__ ." - Listado de pedidos: ". print_r($pedidos,true));
+		//$this->layout->main = View::make('pedido.pedidos', compact('pedidos'));
 	}
 
+	public  function  verificarPagoTarjeta(){
+		$postData = Input::all();
+		try {
+			$resultado = json_decode($this->httpClient->post("/pedido/verificar-pago-tarjeta",
+				array(
+					"NoTarjeta"		    => $postData["NoTarjeta"],
+					"CodigoSeguridad"	  => $postData["CodigoSeguridad"],
+				)));
+			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar pedido");
+			Session::flash('message', 'Pago agregado correctamente a pedido # '. $idPedido);
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al agregar pago al pedido # '. $idPedido);
+		}
+	}
 }
