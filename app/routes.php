@@ -58,3 +58,28 @@ Route::group(array('prefix' => 'compra'), function()
 
 });
 
+
+//Rutas para clientes
+Route::group(array('prefix' => 'cliente'), function()
+{
+	//Lista de Clientes
+	Route::get('lista-clientes','ClienteController@listaClientes');
+	//Crear cliente
+	Route::get('crear-cliente','ClienteController@crearCliente');
+	Route::post('guardar-cliente','ClienteController@guardarCliente');
+	Route::get('eliminar-cliente/{idCliente}','ClienteController@eliminarCliente');
+	Route::get('obtener-cliente/{idCliente}','ClienteController@obtenerCliente');
+	Route::post('actualizar-cliente','ClienteController@actualizarCliente');
+
+
+});
+
+//Ruta para medicinas
+Route::group(array('prefix' => 'medicina'), function()
+{
+	//Lista de medicinas
+	Route::get('lista-medicinas','MedicinaController@listaMedicina');
+	
+
+});
+
