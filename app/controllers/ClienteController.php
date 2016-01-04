@@ -16,9 +16,6 @@ class ClienteController extends BaseController {
 	*/
 
 
-	/**
-	 * Retrona lista de pedidos realizados por el call center
-	 */
 	public function listaClientes()
 	{
 		$clientes = array();
@@ -64,23 +61,66 @@ class ClienteController extends BaseController {
 	public function eliminarCliente($idCliente)
 	{
 
-		//Session::flash('message', 'Cliente recibido ' .$idCliente);
 		try{
 				$resultado = json_decode ($this->httpClient->get('/cliente/eliminar-cliente/'.$idCliente) );
 
+				if ($resultado->responseCode != 0) throw new \Exception("Error al eliminar el cliente");
 
-			if ($resultado->responseCode != 0) throw new \Exception("Error al eliminar el cliente");
-
-			Session::flash('message', 'Cliente eliminado correctamente');
-			return Redirect::to('cliente/lista-clientes');
+				Session::flash('message', 'Cliente eliminado correctamente');
+				return Redirect::to('cliente/lista-clientes');
 		}
-
 		catch (Exception $ex) {
 			Log::error($ex);
-			Session::flash('error', 'Error al eliminar el Cliente');
-			
+			Session::flash('error', 'Error al eliminar el Cliente');	
+		}
+	}
+
+
+	
+	public function obtenerCliente($idCliente)
+	{
+
+
+		Session::flash('message', 'Cliente recibido para actualizar ' .$idCliente);
+		try{
+
+			//obtenemos la información del cliente para actualizarla 
+			$cliente = json_decode ($this->httpClient->get('/cliente/obtener-cliente/'.$idCliente) );
+			Session::flash('message', 'cliente recibido: ' .$cliente -> id );	
+			$this->layout->main = View::make('cliente.actualizar-cliente', compact('cliente'));
+
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al actualizar el cliente');	
 		}
 
+	}
+
+	public function actualizarCliente()
+	{
+		//Get request data
+		$postData = Input::all();
+		
+		try {
+
+			$resultado = json_decode($this->httpClient->post("/cliente/actualizar-cliente",
+				array(
+					"nombre"	=> $postData["nombre"],
+					"telefono"	=> $postData["telefono"],
+					"direccion" => $postData["direccion"],
+					"email"     => $postData["email"],
+					"id"     	=> $postData["id"]
+				)));
+
+			if ($resultado->responseCode != 0) throw new \Exception("Error al actualizar el cliente");
+
+			Session::flash('message', 'Cliente actualizado correctamente ');
+			return Redirect::to('cliente/lista-clientes');
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al actualizar el Cliente');
+			
+		}
 
 	}
 

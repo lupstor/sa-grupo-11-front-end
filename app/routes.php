@@ -67,8 +67,8 @@ Route::group(array('prefix' => 'cliente'), function()
 	Route::get('crear-cliente','ClienteController@crearCliente');
 	Route::post('guardar-cliente','ClienteController@guardarCliente');
 	Route::get('eliminar-cliente/{idCliente}','ClienteController@eliminarCliente');
-
-
+	Route::get('obtener-cliente/{idCliente}','ClienteController@obtenerCliente');
+	Route::post('actualizar-cliente','ClienteController@actualizarCliente');
 
 
 });

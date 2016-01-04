@@ -34,8 +34,8 @@
                     <td>{{ $cliente -> direccion  }}</td>
                     <td>{{ $cliente -> email  }}</td>
 
-                   <td>{{link_to('cliente/actualizar-cliente',"Actualizar",array('class' => 'btn btn-primary'));}}  </td>
-                   <td>{{link_to('cliente/eliminar-cliente/'.$cliente -> id,"Eliminar",array('class' => 'btn btn-primary'));}}  </td>
+                   <td>{{link_to('cliente/obtener-cliente/'.$cliente -> id ,"Actualizar",array('class' => 'btn btn-primary'));}}  </td>
+                   <td>{{link_to('cliente/eliminar-cliente/'.$cliente -> id ,"Eliminar",array('class' => 'btn btn-primary'));}}  </td>
  
                 </tr>
                 @endforeach
