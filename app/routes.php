@@ -57,3 +57,15 @@ Route::group(array('prefix' => 'compra'), function()
 
 });
 
+
+//Rutas para clientes
+Route::group(array('prefix' => 'cliente'), function()
+{
+	//Lista de Clientes
+	Route::get('lista-clientes','ClienteController@listaClientes');
+
+	
+
+});
+
+
