@@ -61,4 +61,27 @@ class ClienteController extends BaseController {
 		}
 	}
 
+	public function eliminarCliente($idCliente)
+	{
+
+		//Session::flash('message', 'Cliente recibido ' .$idCliente);
+		try{
+				$resultado = json_decode ($this->httpClient->get('/cliente/eliminar-cliente/'.$idCliente) );
+
+
+			if ($resultado->responseCode != 0) throw new \Exception("Error al eliminar el cliente");
+
+			Session::flash('message', 'Cliente eliminado correctamente');
+			return Redirect::to('cliente/lista-clientes');
+		}
+
+		catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al eliminar el Cliente');
+			
+		}
+
+
+	}
+
 }
