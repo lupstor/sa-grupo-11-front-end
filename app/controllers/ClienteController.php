@@ -31,5 +31,34 @@ class ClienteController extends BaseController {
 		$this->layout->main = View::make('cliente.clientes', compact('clientes'));
 	}
 
-	
+	public function crearCliente()
+	{
+		$this->layout->main = View::make('cliente.crear-cliente');
+
+	}
+
+	public function guardarCliente()
+	{
+		//Get request data
+		$postData = Input::all();
+		try {
+			$resultado = json_decode($this->httpClient->post("/cliente/guardar-cliente",
+				array(
+					"nombre"	=> $postData["nombre"],
+					"telefono"	=> $postData["telefono"],
+					"direccion" => $postData["direccion"],
+					"email"     => $postData["email"]
+				)));
+
+			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar el cliente");
+
+			Session::flash('message', 'Cliente creado correctamente ');
+			return Redirect::to('cliente/lista-clientes');
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al crear el Cliente');
+			
+		}
+	}
+
 }
