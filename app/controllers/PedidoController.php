@@ -92,7 +92,7 @@ class PedidoController extends BaseController {
 
 		$medicinas = array();
 		try {
-			$medicinas = json_decode($this->httpClient->get("/medicina/lista"));
+			$medicinas = json_decode($this->httpClient->get("/medicina/combo-medicinas"));
 		} catch (Exception $ex) {
 			Log::error($ex);
 		}
