@@ -200,4 +200,23 @@ class PedidoController extends BaseController {
 			Session::flash('error', 'Error al agregar pago al pedido # '. $idPedido);
 		}
 	}
+
+	//cancelar pedido
+	public function cancelarPedido($idPedido)
+	{
+		 
+		try {
+			$resultado = json_decode($this->httpClient->get("/pedido/cancelar-pedido/$idPedido"));
+			if ($resultado->responseCode != 0) throw new \Exception("Error al cancelar pedido");
+				Session::flash('message', 'Pedido cancelado # '.$idPedido );
+				return Redirect::to('pedido/lista-pedidos');
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al cancelar pedido # '.$idPedido);
+		}
+
+				
+	}
+	
+
 }
