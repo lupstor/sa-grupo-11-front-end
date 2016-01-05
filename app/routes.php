@@ -58,6 +58,10 @@ Route::group(array('prefix' => 'compra'), function()
 	Route::get('nueva-compra','CompraController@nuevaCompra');
 	Route::post('guardar-compra','CompraController@guardarCompra');
 
+	//Cancelar compra
+	Route::get('cancelar-compra/{idPedido}','CompraController@cancelarCompra');
+
+	
 });
 
 
