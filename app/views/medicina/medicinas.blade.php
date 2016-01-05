@@ -7,7 +7,7 @@
         <h3>Listado de Medicamentos</h3>
 
         <br>
-      
+              {{link_to('medicina/crear-medicina',"Crear medicamento");}}
 
 
         <br>
@@ -34,7 +34,8 @@
                     <td>{{ $med->descripcion }}</td>
                     <td>{{ $med->cantidad }}</td>
                     <td>{{ $med->proveedor_id }}</td>                                 
-                     
+                   
+                    
                 </tr>
                 @endforeach
                 </tbody>

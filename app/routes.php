@@ -85,7 +85,7 @@ Route::group(array('prefix' => 'medicina'), function()
 {
 	//Lista de medicinas
 	Route::get('lista-medicinas','MedicinaController@listaMedicina');
-	
-
+	Route::get('crear-medicina','MedicinaController@crearMedicina');
+	Route::post('guardar-medicina','MedicinaController@guardarMedicina');
 });
 

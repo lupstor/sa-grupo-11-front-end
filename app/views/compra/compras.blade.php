@@ -19,10 +19,12 @@
                 <tr>
                     <th>Id</th>
                     <th>Fecha</th>
+                     <th>Status</th>
                     <th>Cliente</th>
                     <th>Creado por</th>
                     <th>Total</th>
                     <th>Tipo pago</th>
+                    
 
                 </tr>
                 </thead>
@@ -32,6 +34,7 @@
                 <tr>
                     <td>{{ $compra->id }}</td>
                     <td>{{ $compra->created_at }}</td>
+                      <td>{{$compra->status }}</td>
                     <td>{{ $compra->cliente }}</td>
                     <td>{{ $compra->empleado }}</td>
                     <td>{{ "Q". number_format($compra->total,2) }}</td>
