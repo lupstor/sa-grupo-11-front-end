@@ -34,14 +34,12 @@
                 <tr>
                     <td>{{ $compra->id }}</td>
                     <td>{{ $compra->created_at }}</td>
-                      <td>{{$compra->status }}</td>
+
                     <td>{{ $compra->cliente }}</td>
                     <td>{{ $compra->empleado }}</td>
                     <td>{{ "Q". number_format($compra->total,2) }}</td>
                     <td>{{ $compra->tipo_pago }}</td>
                     <td>{{link_to('compra/detalle-compra/'.$compra->id,"Detalle",array('class' => 'btn btn-primary'));}}  </td>
-                    <td>{{link_to('compra/cancelar-compra/'.$compra->id,"Cancelar",array('class' => 'btn btn-primary'));}}  </td>
-                    
                 </tr>
                 @endforeach
                 </tbody>

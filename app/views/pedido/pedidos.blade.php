@@ -46,7 +46,11 @@
                     <td>{{ "Q". number_format($pedido->total,2) }}</td>
                     <td>{{ $pedido->tipo_pago }}</td>
                     <td>{{link_to('pedido/detalle-pedido/'.$pedido->id,"Detalle",array('class' => 'btn btn-primary'));}}  </td>
-                    <td>{{link_to('pedido/cancelar-pedido/'.$pedido->id,"Cancelar",array('class' => 'btn btn-primary'));}}  </td>
+                    <td>
+                    @if ($pedido->status != "pagado" && $pedido->status != "cancelado")
+                        {{link_to('pedido/cancelar-pedido/'.$pedido->id,"Cancelar",array('class' => 'btn btn-primary'));}}
+                    @endif
+                    </td>
                 </tr>
                 @endforeach
                 </tbody>

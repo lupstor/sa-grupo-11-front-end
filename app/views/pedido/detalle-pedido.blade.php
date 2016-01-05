@@ -32,7 +32,7 @@
         <h3>Detalle de pedido</h3>
         <br>
 
-        @if (empty($pedido->tipo_pago) )
+        @if (empty($pedido->tipo_pago) && $pedido->status != "pagado" && $pedido->status != "cancelado" )
         <div class="pull-left">
             {{link_to('pedido/crear-detalle-pedido/'.$pedido->id,"Agregar medicamento",array(),array('class' => 'btn btn-primary'));}}
         </div>
@@ -67,7 +67,7 @@
         </div>
 
 
-        @if (empty($pedido->tipo_pago) && count($detallePedido))
+        @if (empty($pedido->tipo_pago) && count($detallePedido) && $pedido->status != "pagado" && $pedido->status != "cancelado")
             <div class="pull-right">
                 {{link_to('pedido/pagar-pedido/'.$pedido->id,"Pagar pedido",array(),array('class' => 'btn btn-primary'));}}
             </div>

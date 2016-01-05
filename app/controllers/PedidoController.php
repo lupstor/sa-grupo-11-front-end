@@ -173,7 +173,7 @@ class PedidoController extends BaseController {
 					"idPedido"         => $idPedido,
 					"tipo_pago"		    => $postData["tipo_pago"],
 					"porcentajeTarjeta"		=> $postData["porcentajeTarjeta"],
-					"status"	        => 'Cancelada',
+					"status"	        => 'pagado',
 				)));
 			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar pedido");
 			Session::flash('message', 'Pago agregado correctamente a pedido # '. $idPedido);
@@ -194,10 +194,10 @@ class PedidoController extends BaseController {
 					"CodigoSeguridad"	  => $postData["CodigoSeguridad"],
 				)));
 			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar pedido");
-			Session::flash('message', 'Pago agregado correctamente a pedido # '. $idPedido);
+			Session::flash('message', 'Pago agregado correctamente a pedido #');
 		} catch (Exception $ex) {
 			Log::error($ex);
-			Session::flash('error', 'Error al agregar pago al pedido # '. $idPedido);
+			Session::flash('error', 'Error al agregar pago al pedido ');
 		}
 	}
 
