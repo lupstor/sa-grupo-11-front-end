@@ -40,7 +40,9 @@ Route::group(array('prefix' => 'pedido'), function()
 	//Pagar pedido
 	Route::get('pagar-pedido/{idPedido}','PedidoController@pagarPedido');
 	Route::post('guardar-pago-pedido/{idPedido}','PedidoController@guardarPagoPedido');
-	
+
+	//Cancelar pedido
+	Route::get('cancelar-pedido/{idPedido}','PedidoController@cancelarPedido');
 });
 
 
