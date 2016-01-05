@@ -92,4 +92,22 @@ class CompraController extends BaseController {
 		}
 	}
 
+	
+	//cancelar compra
+	public function cancelarCompra($idPedido)
+	{
+		 
+		try {
+			$resultado = json_decode($this->httpClient->get("/pedido/cancelar-compra/$idPedido"));
+			if ($resultado->responseCode != 0) throw new \Exception("Error al cancelar compra");
+				Session::flash('message', 'Compra cancelada # '.$idPedido );
+				return Redirect::to('compra/lista-compras');
+		} catch (Exception $ex) {
+			Log::error($ex);
+			Session::flash('error', 'Error al cancelar pedido # '.$idPedido);
+		}
+
+				
+	}
+
 }
