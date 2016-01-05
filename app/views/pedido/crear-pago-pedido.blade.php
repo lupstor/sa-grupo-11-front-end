@@ -50,7 +50,8 @@
 					{{ Form::label('porcentaje', 'Porcentaje Aplicado:	') }}
 					{{ Form::label('porcentaje', '4%') }}<br>
 					{{ Form::label('recargo', 'Recargo:	') }}
-					{{ Form::label('recargo', $pedido->total * 0.04) }}<br>
+					{{ Form::label('recargo', $pedido->total * 0.04 , ['id' => 'labelRecargo']) }}					
+					{{ Form::hidden('ocultoRecargo',$pedido->total * 0.04, ['id' => 'ocultoRecargo', 'step' => 'any']) }}<br>
                 </div>
             </div>
 

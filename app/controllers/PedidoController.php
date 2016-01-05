@@ -172,6 +172,7 @@ class PedidoController extends BaseController {
 				array(
 					"idPedido"         => $idPedido,
 					"tipo_pago"		    => $postData["tipo_pago"],
+					"ocultoRecargo"		=> $postData["ocultoRecargo"],
 					"status"	        => 'Cancelada',
 				)));
 			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar pedido");
@@ -180,13 +181,8 @@ class PedidoController extends BaseController {
 			Log::error($ex);
 			Session::flash('error', 'Error al agregar pago al pedido # '. $idPedido);
 		}
-		//$pedido = json_decode($this->httpClient->get("/pedido/obtener-por-id/$idPedido"));
-		//$pedidos = array();
-		//$pedidos[0] = $pedido;
-		
-		return Redirect::to("pedido/pagar-pedido/".$idPedido);
-		//Log::debug(__METHOD__ ." - Listado de pedidos: ". print_r($pedidos,true));
-		//$this->layout->main = View::make('pedido.pedidos', compact('pedidos'));
+		$pedido = json_decode($this->httpClient->get("/pedido/obtener-por-id/$idPedido"));
+		return Redirect::to((empty($pedido->call_center) ? "compra/lista-compras" : "pedido/lista-pedidos" ));
 	}
 
 	public  function  verificarPagoTarjeta(){
