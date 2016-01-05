@@ -50,7 +50,8 @@
 					{{ Form::label('porcentaje', 'Porcentaje Aplicado:	') }}
 					{{ Form::label('porcentaje', '4%') }}<br>
 					{{ Form::label('recargo', 'Recargo:	') }}
-					{{ Form::label('recargo', $pedido->total * 0.04 , ['id' => 'labelRecargo']) }}					
+					{{ Form::label('recargo', $pedido->total * 0.04 , ['id' => 'labelRecargo']) }}
+					{{ Form::hidden('porcentajeTarjeta',0, ['id' => 'porcentajeTarjeta', 'step' => 'any']) }}					
 					{{ Form::hidden('ocultoRecargo',$pedido->total * 0.04, ['id' => 'ocultoRecargo', 'step' => 'any']) }}<br>
                 </div>
             </div>
@@ -59,16 +60,19 @@
 
 			<script type="text/javascript">
 				$('#pagoTarjeta').hide()
+				$('#porcentajeTarjeta').val(0);
 				
 				if(document.getElementById('statusPedido').innerHTML ==  'CANCELADA'){
 					document.getElementById("botonSubmit").disabled = true;
 				}
 				
 				function OcultarDivTarjeta() {
+					$('#porcentajeTarjeta').val(0);
 					$('#pagoTarjeta').hide()
 					$('#pagoEfectivo').show()
 				}
 				function OcultarDivEfectivo() {
+					$('#porcentajeTarjeta').val(0.04);
 					$('#pagoEfectivo').hide()
 					$('#pagoTarjeta').show()
 				}

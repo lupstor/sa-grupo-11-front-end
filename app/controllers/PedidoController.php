@@ -172,7 +172,7 @@ class PedidoController extends BaseController {
 				array(
 					"idPedido"         => $idPedido,
 					"tipo_pago"		    => $postData["tipo_pago"],
-					"ocultoRecargo"		=> $postData["ocultoRecargo"],
+					"porcentajeTarjeta"		=> $postData["porcentajeTarjeta"],
 					"status"	        => 'Cancelada',
 				)));
 			if ($resultado->responseCode != 0) throw new \Exception("Error al guardar pedido");
